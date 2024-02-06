@@ -2,7 +2,7 @@
 
 namespace CouponWeb.Service.IService
 {
-    public interface IService
+    public interface IBaseService
     {
        Task<ResponseDto?> SendAsync(ResponseDto responseDto);
     }
