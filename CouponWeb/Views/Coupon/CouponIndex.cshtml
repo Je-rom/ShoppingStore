@@ -32,24 +32,24 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if (base.Model != null)
+				{
 				@foreach (var item in Model)
 				{
-					<tr>
-						<td>
-							@item.CouponCode
-						</td>
-						<td>
-							@((item.DiscountAmount).ToString())
-						</td>
-						<td>
-							@((item.MinAmount).ToString())
-						</td>
-						<td>
-							<a class="btn btn-danger">
-								<i class="bi bi-trash"></i>
-							</a>
-						</td>
-					</tr>
+						<tr>
+							<td>@item.CouponCode
+							</td>
+							<td>@((item.DiscountAmount).ToString("c"))
+							</td>
+							<td>@((item.MinAmount).ToString("c"))
+							</td>
+							<td>
+								<a class="btn btn-danger">
+									<i class="bi bi-trash"></i>
+								</a>
+							</td>
+						</tr>
+				}
 				}
 			</tbody>
 		</table>

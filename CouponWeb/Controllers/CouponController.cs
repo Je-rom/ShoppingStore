@@ -14,7 +14,7 @@ namespace CouponWeb.Controllers
             _couponService = couponService;
         }
 
-        public async Task <IActionResult> CouponIndex()
+        public async Task<IActionResult> CouponIndex()
         {
             List<CouponDto>? list = new();
 
