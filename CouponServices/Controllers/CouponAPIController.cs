@@ -34,10 +34,11 @@ namespace CouponServices.Controllers
                 _db.Coupons.Add(obj); //telling entity framework to add this record to coupon table
                 _db.SaveChanges();
                 _response.Result = _mapper.Map<CouponDto>(obj);
-
             }
             catch (Exception ex)
             {
+
+                Console.WriteLine(ex.Message);
                 _response.IsSuccess = false;
                 _response.Message = ex.Message;
             }

@@ -29,6 +29,7 @@ namespace CouponWeb.Service
             {
                 ApiType = staticDetails.ApiType.DELETE,
                 Url = staticDetails.CouponAPIBase + "/api/coupon/"+ id
+
             });
         }
 
@@ -38,6 +39,7 @@ namespace CouponWeb.Service
             {
                 ApiType = staticDetails.ApiType.GET,
                 Url = staticDetails.CouponAPIBase + "/api/coupon"
+                
             });
         }
 
