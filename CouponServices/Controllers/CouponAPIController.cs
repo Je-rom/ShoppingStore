@@ -25,26 +25,6 @@ namespace CouponServices.Controllers
          
         }
 
-        [HttpPost]
-        public ResponseDto Post([FromBody] CouponDto couponDto)
-        {
-            try
-            {
-                Coupon obj = _mapper.Map<Coupon>(couponDto);
-                _db.Coupons.Add(obj); //telling entity framework to add this record to coupon table
-                _db.SaveChanges();
-                _response.Result = _mapper.Map<CouponDto>(obj);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine(ex.Message);
-                _response.IsSuccess = false;
-                _response.Message = ex.Message;
-            }
-            return _response;
-        }
-
         [HttpGet]
         public ResponseDto Get() 
         {
@@ -97,6 +77,24 @@ namespace CouponServices.Controllers
             return _response;
         }
 
+        [HttpPost]
+        public ResponseDto Post([FromBody] CouponDto couponDto)
+        {
+            try
+            {
+                Coupon obj = _mapper.Map<Coupon>(couponDto);
+                _db.Coupons.Add(obj); //telling entity framework to add this record to coupon table
+                _db.SaveChanges();
+                _response.Result = _mapper.Map<CouponDto>(obj);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
         [HttpPut]
         public ResponseDto Put([FromBody] CouponDto couponDto)
         {
@@ -117,6 +115,7 @@ namespace CouponServices.Controllers
         }
 
         [HttpDelete]
+        [Route("{id:int}")]
         public ResponseDto Delete(int id)
         {
             try

@@ -2,6 +2,7 @@
 using CouponWeb.Service;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CouponWeb.Controllers
@@ -19,8 +20,8 @@ namespace CouponWeb.Controllers
         {
             List<CouponDto>? list = new();
 
-            ResponseDto? response = await _couponService.GetAllCouponsAsync();
-            Console.WriteLine(response?.Message.ToString());    
+            ResponseDto? response = await _couponService.GetAllCouponsAsync();    
+
             if (response != null && response.IsSuccess)
             {
                 list = JsonConvert.DeserializeObject<List<CouponDto>>(Convert.ToString(response.Result));
@@ -39,6 +40,7 @@ namespace CouponWeb.Controllers
             if (ModelState.IsValid)
             {
                 ResponseDto? response = await _couponService.CreateCouponsAsync(model);
+
                 if (response != null && response.IsSuccess)
                 {
                     return RedirectToAction(nameof(CouponIndex));
@@ -47,7 +49,31 @@ namespace CouponWeb.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> CouponDelete(int couponId)
+        {
+            ResponseDto? response = await _couponService.GetCouponByIdAsync(couponId);
 
-    }
+            if (response != null && response.IsSuccess)
+            {
+                CouponDto? model = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(response.Result));
+                return View(model);
+            }
+            return NotFound();  
+        }
+
+        [HttpPost]
+		public async Task<IActionResult> CouponDelete(CouponDto couponDto)
+		{
+			ResponseDto? response = await _couponService.DeleteCouponsAsync(couponDto.CouponId);
+
+			if (response != null && response.IsSuccess)
+			{
+                return RedirectToAction(nameof(CouponIndex));
+            }
+			return View(couponDto);
+		}
+
+
+	}
 }
  

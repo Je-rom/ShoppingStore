@@ -19,7 +19,7 @@ namespace CouponWeb.Service
             {
                 ApiType = staticDetails.ApiType.POST,
                 Data = couponDto,
-                Url = staticDetails.CouponAPIBase + "/api/coupon/" + couponDto
+                Url = staticDetails.CouponAPIBase + "/api/coupon/"
             });
         }
 
