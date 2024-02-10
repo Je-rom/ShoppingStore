@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{E3C476C3-1DF3-4769-BF5B-B4C274916A6D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Getway", "Getway", "{B0335F6D-B2B9-4B04-B5AD-46EA3CE0289C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GateWay", "GateWay", "{B0335F6D-B2B9-4B04-B5AD-46EA3CE0289C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{CD3AA1F4-E8EB-4EF3-BDED-C727C9AE97D2}"
 EndProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponServices", "CouponServices\CouponServices.csproj", "{D35431A4-90CE-4D09-8C19-68EFE2E08F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouponWeb", "CouponWeb\CouponWeb.csproj", "{31FF5257-96C7-4D38-A575-8FBFA3DAD3BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponWeb", "CouponWeb\CouponWeb.csproj", "{31FF5257-96C7-4D38-A575-8FBFA3DAD3BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
