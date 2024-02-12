@@ -1,6 +1,6 @@
 ﻿using CouponWeb.Models;
 
-namespace CouponWeb.Service
+namespace CouponWeb.Service.IService
 {
     public interface ICouponService
     {
@@ -13,4 +13,3 @@ namespace CouponWeb.Service
 
     }
 }
- 

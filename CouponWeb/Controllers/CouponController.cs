@@ -1,5 +1,5 @@
 ﻿using CouponWeb.Models;
-using CouponWeb.Service;
+using CouponWeb.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections;
