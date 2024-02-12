@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CouponService.AuthApi.Models
+namespace User.AuthApi.Models
 {
     public class ApplicationUser : IdentityUser
     {

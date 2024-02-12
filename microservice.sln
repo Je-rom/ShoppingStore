@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponServices", "CouponSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponWeb", "CouponWeb\CouponWeb.csproj", "{31FF5257-96C7-4D38-A575-8FBFA3DAD3BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouponService.AuthApi", "CouponService.AuthApi\CouponService.AuthApi.csproj", "{157F4359-B068-41AF-B694-B1050EAE3EC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.AuthApi", "CouponService.AuthApi\User.AuthApi.csproj", "{157F4359-B068-41AF-B694-B1050EAE3EC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

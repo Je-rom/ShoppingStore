@@ -1,4 +1,4 @@
-﻿namespace CouponServices.AuthApi.Data
+﻿namespace User.AuthApi.Data
 {
     public class IndentityDbContext
     {

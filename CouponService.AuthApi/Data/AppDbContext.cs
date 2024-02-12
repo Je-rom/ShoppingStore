@@ -1,10 +1,9 @@
-﻿
-using CouponService.AuthApi.Models;
+﻿using User.AuthApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CouponServices.AuthApi.Data
+namespace User.AuthApi.Data
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser> //define the user
     {

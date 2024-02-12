@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace CouponService.AuthApi.Migrations
+namespace User.AuthApi.Migrations
 {
     /// <inheritdoc />
     public partial class AddNameToAspNetUsers : Migration
