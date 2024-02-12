@@ -12,19 +12,51 @@ namespace User.AuthApi.Service
         private readonly AppDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public AuthService(AppDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AuthService(AppDbContext db, IJwtTokenGenerator jwtTokenGenerator,
+             UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
+            _jwtTokenGenerator = jwtTokenGenerator;
             _userManager = userManager;
             _roleManager = roleManager;
         }
 
 
-        public Task<LoginRequestDto> Login(LoginRequestDto loginRequestDto)
+        public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
         {
-            throw new NotImplementedException();
+            var user = _db.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDto.UserName.ToLower()); //retrieve user from db based on username
+
+            bool isValid = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
+
+            if (user == null || isValid == false)
+            {
+                return new LoginResponseDto() { User = null, Token = "" };
+            }
+
+            //if user was found generate JWT Token
+            
+            var token = _jwtTokenGenerator.GenerateToken(user);
+
+
+            UserDto userDTO = new()
+            {
+                Email = user.Email,
+                Guid = user.Id,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            LoginResponseDto loginResponseDto = new LoginResponseDto()
+            {
+                User = userDTO,
+                Token = token
+            };
+
+            return loginResponseDto;
         }
+
 
         public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {
@@ -58,10 +90,9 @@ namespace User.AuthApi.Service
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                
             }
             return "Error Encountered";
         }
