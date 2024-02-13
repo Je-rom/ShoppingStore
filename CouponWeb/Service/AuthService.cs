@@ -1,5 +1,6 @@
 ﻿using CouponWeb.Models;
 using CouponWeb.Service.IService;
+using CouponWeb.Utility;
 
 namespace CouponWeb.Service
 {
@@ -12,19 +13,34 @@ namespace CouponWeb.Service
             _baseService = baseService;
         }
 
-        public Task<ResponseDto?> AssignRoleAsync(RegistrationRequestDto registrationRequestDto)
+        public async Task<ResponseDto?> AssignRoleAsync(RegistrationRequestDto registrationRequestDto)
         {
-            throw new NotImplementedException();
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = staticDetails.ApiType.POST,
+                Data = registrationRequestDto,
+                Url = staticDetails.AuthAPIBase + "/api/auth/AssignRole"
+            });
         }
 
-        public Task<ResponseDto?> LoginAsync(LoginRequestDto loginRequestDto)
+        public async Task<ResponseDto?> LoginAsync(LoginRequestDto loginRequestDto)
         {
-            throw new NotImplementedException();
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = staticDetails.ApiType.POST,
+                Data = loginRequestDto,
+                Url = staticDetails.AuthAPIBase + "/api/auth/login"
+            });
         }
 
-        public Task<ResponseDto?> RegisterAsync(RegistrationRequestDto registrationRequestDto)
+        public async Task<ResponseDto?> RegisterAsync(RegistrationRequestDto registrationRequestDto)
         {
-            throw new NotImplementedException();
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = staticDetails.ApiType.POST,
+                Data = registrationRequestDto,
+                Url = staticDetails.AuthAPIBase + "/api/auth/register"
+            });
         }
     }
 }
