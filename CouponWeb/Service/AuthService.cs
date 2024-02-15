@@ -30,7 +30,7 @@ namespace CouponWeb.Service
                 ApiType = staticDetails.ApiType.POST,
                 Data = loginRequestDto,
                 Url = staticDetails.AuthAPIBase + "/api/auth/login"
-            });
+            }, withBearer: false);
         }
 
         public async Task<ResponseDto?> RegisterAsync(RegistrationRequestDto registrationRequestDto)
@@ -40,7 +40,7 @@ namespace CouponWeb.Service
                 ApiType = staticDetails.ApiType.POST,
                 Data = registrationRequestDto,
                 Url = staticDetails.AuthAPIBase + "/api/auth/register"
-            });
+            }, withBearer: false);
         }
     }
 }
