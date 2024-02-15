@@ -16,7 +16,7 @@ namespace User.AuthApi.Service
             _jwtOptions = jwtOptions.Value;
         }
 
-        public string GenerateToken(ApplicationUser applicationUser)
+        public string GenerateToken(ApplicationUser applicationUser, IEnumerable<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler(); //generate token based on the application user
 
@@ -29,6 +29,7 @@ namespace User.AuthApi.Service
                 new Claim(JwtRegisteredClaimNames.Name,applicationUser.UserName)
             };
 
+            claimList.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             //token descriptor the configuration for the token 
             var tokenDescriptor = new SecurityTokenDescriptor()
