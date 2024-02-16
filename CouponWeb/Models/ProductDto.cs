@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductApi.Models
+namespace CouponWeb.Models
 {
-    public class Product
+    public class ProductDto
     {
         [Key]
         public int ProductId { get; set; }
