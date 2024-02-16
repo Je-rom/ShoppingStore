@@ -13,7 +13,6 @@ namespace ProductApi.Controllers
 {
     [Route("/api/product")]
     [ApiController]
-    [Authorize]
     public class ProductApiController : ControllerBase
     {
         private readonly AppDbContext _db;
@@ -63,7 +62,7 @@ namespace ProductApi.Controllers
         }
 
         [HttpPost]
-       [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post([FromBody] ProductDto productDto)
         {
             try
@@ -82,7 +81,7 @@ namespace ProductApi.Controllers
         }
 
         [HttpPut]
-       [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Put([FromBody] ProductDto productDto)
         {
             try
