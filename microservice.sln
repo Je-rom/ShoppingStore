@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponServices", "CouponSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponWeb", "CouponWeb\CouponWeb.csproj", "{31FF5257-96C7-4D38-A575-8FBFA3DAD3BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.AuthApi", "CouponService.AuthApi\User.AuthApi.csproj", "{157F4359-B068-41AF-B694-B1050EAE3EC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.AuthApi", "CouponService.AuthApi\User.AuthApi.csproj", "{157F4359-B068-41AF-B694-B1050EAE3EC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductApi", "ProductApi\ProductApi.csproj", "{5D431497-E405-4FA7-A93C-BEB963F4A840}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{157F4359-B068-41AF-B694-B1050EAE3EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{157F4359-B068-41AF-B694-B1050EAE3EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{157F4359-B068-41AF-B694-B1050EAE3EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D431497-E405-4FA7-A93C-BEB963F4A840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D431497-E405-4FA7-A93C-BEB963F4A840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D431497-E405-4FA7-A93C-BEB963F4A840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D431497-E405-4FA7-A93C-BEB963F4A840}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{D35431A4-90CE-4D09-8C19-68EFE2E08F5C} = {0B7490EC-6714-4742-B6E9-F4F6F44927CF}
 		{31FF5257-96C7-4D38-A575-8FBFA3DAD3BC} = {E3C476C3-1DF3-4769-BF5B-B4C274916A6D}
 		{157F4359-B068-41AF-B694-B1050EAE3EC1} = {0B7490EC-6714-4742-B6E9-F4F6F44927CF}
+		{5D431497-E405-4FA7-A93C-BEB963F4A840} = {0B7490EC-6714-4742-B6E9-F4F6F44927CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6EC0F2F7-7750-456C-96EE-3A48C8F27804}
