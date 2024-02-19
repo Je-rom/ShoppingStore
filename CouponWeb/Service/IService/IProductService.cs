@@ -4,7 +4,7 @@ namespace CouponWeb.Service.IService
 {
     public interface IProductService
     {
-        Task<ResponseDto?> GetProductAsync(string productId);
+        //Task<ResponseDto?> GetProductAsync(string productId);
         Task<ResponseDto?> GetAllProductsAsync();
         Task<ResponseDto?> GetProductByIdAsync(int id);
         Task<ResponseDto?> CreateProductsAsync(ProductDto productDto);

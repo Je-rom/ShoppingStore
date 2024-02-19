@@ -1,16 +1,16 @@
 using AutoMapper;
-using ProductApi;
-using ProductApi.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ProductApi;
+using ProductApi.Data;
+using ProductApi.Extensions;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -53,31 +53,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-var settingsSection = builder.Configuration.GetSection("ApiSettings");
 
-var secret = settingsSection.GetValue<string>("Secret");
-var issuer = settingsSection.GetValue<string>("Issuer");
-var audience = settingsSection.GetValue<string>("Audience");
-
-var key = Encoding.ASCII.GetBytes(secret);
-
-
-builder.Services.AddAuthentication(x =>
-{
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
-{
-    x.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = true,
-        ValidIssuer = issuer,
-        ValidAudience = audience,
-        ValidateAudience = true
-    };
-});
+builder.AddAppAuthentication();
 
 builder.Services.AddAuthorization();
 

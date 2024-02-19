@@ -20,7 +20,7 @@ namespace ProductWeb.Service
             {
                 ApiType = staticDetails.ApiType.POST,
                 Data = productDto,
-                Url = staticDetails.ProductAPIBase + "/api/product/"
+                Url = staticDetails.ProductAPIBase + "/api/product"
             });
         }
 
@@ -44,14 +44,14 @@ namespace ProductWeb.Service
             });
         }
 
-        public async Task<ResponseDto?> GetProductAsync(string productCode)
+      /*  public async Task<ResponseDto?> GetProductAsync(string productCode)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = staticDetails.ApiType.GET,
                 Url = staticDetails.ProductAPIBase + "/api/product/GetByCode/"+ productCode
             });
-        }
+        }*/
 
         public async Task<ResponseDto?> GetProductByIdAsync(int id)
         {
@@ -68,7 +68,7 @@ namespace ProductWeb.Service
             {
                 ApiType = staticDetails.ApiType.PUT,
                 Data = productDto,
-                Url = staticDetails.ProductAPIBase + "/api/product/" + productDto
+                Url = staticDetails.ProductAPIBase + "/api/product"
             });
         }
     }
