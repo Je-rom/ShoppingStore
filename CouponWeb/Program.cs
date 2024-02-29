@@ -20,6 +20,7 @@ builder.Services.AddHttpClient<IProductService, ProductService>();
 staticDetails.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
 staticDetails.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 staticDetails.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
+staticDetails.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
 
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
