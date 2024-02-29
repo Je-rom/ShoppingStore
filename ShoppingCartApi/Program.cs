@@ -6,6 +6,8 @@ using Microsoft.OpenApi.Models;
 using ProductApi;
 using ShoppingCartApi.Data;
 using ShoppingCartApi.Extensions;
+using ShoppingCartApi.Service;
+using ShoppingCartApi.Service.Iservice;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +21,10 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddHttpClient("Product", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]));
+builder.Services.AddHttpClient("Coupon", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

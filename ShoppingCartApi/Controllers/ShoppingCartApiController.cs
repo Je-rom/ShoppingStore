@@ -6,6 +6,7 @@ using ShoppingCartApi.Data;
 using ShoppingCartApi.Models;
 using ShoppingCartApi.Models.Dto;
 using ShoppingCartApi.Models.DTO;
+using ShoppingCartApi.Service.Iservice;
 
 namespace ShoppingCartApi.Controllers
 {
@@ -16,12 +17,16 @@ namespace ShoppingCartApi.Controllers
         private IMapper _mapper;
         private ResponseDto _response;
         private readonly AppDbContext _db;
+        private readonly IProductService _productService;
+        private readonly ICouponService _couponService;
 
-        public ShoppingCartApiController(IMapper mapper, AppDbContext db)
+        public ShoppingCartApiController(IMapper mapper, AppDbContext db, IProductService productService, ICouponService couponService)
         {
             _mapper = mapper;
             this._response = new ResponseDto();
             _db = db;
+            _productService = productService;
+            _couponService = couponService;
         }
 
         [HttpGet("GetCart/{userId}")]
@@ -64,6 +69,46 @@ namespace ShoppingCartApi.Controllers
             }
             return _response;
         }
+
+        [HttpPost("ApplyCoupon")]
+        public async Task<object> ApplyCoupon([FromBody]CartDto cartDto)
+        {
+            try
+            {
+                var cartFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == cartDto.CartHeader.UserId);
+                cartFromDb.CouponCode = cartDto.CartHeader.CouponCode;
+                _db.CartHeaders.Update(cartFromDb);
+                await _db.SaveChangesAsync();
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.ToString();
+            }
+            return _response;
+        }
+
+
+        [HttpPost("RemoveCoupon")]
+        public async Task<object> RemoveCoupon([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                var cartFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == cartDto.CartHeader.UserId);
+                cartFromDb.CouponCode = "";
+                _db.CartHeaders.Update(cartFromDb);
+                await _db.SaveChangesAsync();
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.ToString();
+            }
+            return _response;
+        }
+
 
         [HttpPost("CartUpsert")]
         public async Task<ResponseDto> CartUpsert(CartDto cartDto)
