@@ -13,7 +13,7 @@ namespace CouponWeb.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult CartIndex()
         {
             return View();
         }
