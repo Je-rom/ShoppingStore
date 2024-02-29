@@ -1,4 +1,5 @@
 ﻿using CouponWeb.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CouponWeb.Controllers
@@ -12,7 +13,7 @@ namespace CouponWeb.Controllers
             _cartService = cartService;
         }
 
-
+        [Authorize]
         public IActionResult CartIndex()
         {
             return View();
