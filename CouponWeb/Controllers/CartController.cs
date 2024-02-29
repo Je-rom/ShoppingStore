@@ -14,7 +14,7 @@ namespace CouponWeb.Controllers
         }
 
         [Authorize]
-        public IActionResult CartIndex()
+        public async Task<IActionResult> CartIndex()
         {
             return View();
         }
