@@ -2,6 +2,8 @@
 
     <form method="post">
         <br />
+        <input asp-for="CartHeader.UserId" hidden/>
+        <input asp-for="CartHeader.CartHeaderId" hidden/>
         <div class="">
             <div class="card border mt-4 container">
                 <div class="card-header bg-dark text-light ml-0 row ">
@@ -60,7 +62,7 @@
                         <div class="col-6">
                                 <span>Coupon:</span>
                                 <input  />
-                                <button type="submit"  class="btn btn-sm btn-success"> Apply </button>
+                        <button type="submit" asp-action="ApplyCoupon" class="btn btn-sm btn-success"> Apply </button>
                         </div>
                         <div class="col-6 text-end">
                             <span class="text-danger" style="font-size:21px;">  Order Total : $$ <br /></span>
