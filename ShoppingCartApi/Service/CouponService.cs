@@ -18,7 +18,7 @@ namespace ShoppingCartApi.Service
             var response = await client.GetAsync($"/api/coupon/GetByCode/{couponCode}");
             var content = await response.Content.ReadAsStringAsync();
             var respons = JsonConvert.DeserializeObject<ResponseDto>(content);
-            if (respons.IsSuccess && respons!=null)
+            if (respons != null && respons.IsSuccess)
             {
                 return JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(respons.Result));
             }
