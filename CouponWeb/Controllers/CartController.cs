@@ -49,6 +49,19 @@ namespace CouponWeb.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
+        {
+            cartDto.CartHeader.CouponCode = "";
+            ResponseDto? response = await _cartService.ApplyCouponAsync(cartDto);
+            if (response != null & response.IsSuccess)
+            {
+                TempData["success"] = "CouponCode removed successfully";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
 
 
         private async Task<CartDto> LoadCartDtoByUser() //load cartdo based on logged in user
