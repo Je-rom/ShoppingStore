@@ -1,4 +1,4 @@
-﻿namespace ProductApi.Models.DTO
+﻿namespace ServiceEmailApi.Models.DTO
 {
     public class ResponseDto
     {

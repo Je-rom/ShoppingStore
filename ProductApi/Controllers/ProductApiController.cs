@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Azure;
-using ProductApi.Data;
-using ProductApi.Models;
-using ProductApi.Models.DTO;
+using ServiceEmailApi.Data;
+using ServiceEmailApi.Models;
+using ServiceEmailApi.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using ProductApi.Models.Dto;
+using ServiceEmailApi.Models.Dto;
 
-namespace ProductApi.Controllers
+namespace ServiceEmailApi.Controllers
 {
     [Route("/api/product")]
     [ApiController]

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ProductApi;
+using ServiceEmailApi;
 using ShoppingCartApi.Data;
 using ShoppingCartApi.Extensions;
 using ShoppingCartApi.Service;

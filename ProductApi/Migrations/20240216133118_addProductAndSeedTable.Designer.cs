@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProductApi.Data;
+using ServiceEmailApi.Data;
 
 #nullable disable
 
-namespace ProductApi.Migrations
+namespace ServiceEmailApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240216133118_addProductAndSeedTable")]

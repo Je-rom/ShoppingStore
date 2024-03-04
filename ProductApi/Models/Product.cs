@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductApi.Models
+namespace ServiceEmailApi.Models
 {
     public class Product
     {

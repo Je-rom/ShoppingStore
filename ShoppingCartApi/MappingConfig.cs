@@ -3,7 +3,7 @@ using ShoppingCartApi.Models;
 using ShoppingCartApi.Models.Dto;
 
 
-namespace ProductApi
+namespace ServiceEmailApi
 {
     public class MappingConfig
     {
