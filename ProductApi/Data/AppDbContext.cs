@@ -1,7 +1,7 @@
-﻿using ServiceEmailApi.Models;
+﻿using ProductApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ServiceEmailApi.Data
+namespace ProductApi.Data
 {
     public class AppDbContext : DbContext
     {

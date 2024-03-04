@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace ServiceEmailApi.Migrations
+namespace ProductApi.Migrations
 {
     /// <inheritdoc />
     public partial class addProductAndSeedTable : Migration

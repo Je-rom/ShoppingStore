@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using ServiceEmailApi.Models;
-using ServiceEmailApi.Models.Dto;
+using ProductApi.Models;
+using ProductApi.Models.Dto;
 
 
-namespace ServiceEmailApi
+namespace ProductApi
 {
     public class MappingConfig
     {
