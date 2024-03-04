@@ -12,7 +12,7 @@ namespace MessageBus
     public class MessageBus : IMessageBus
     {
 
-        private string _connectionString = "Endpoint=sb://shoppingproject.servicebus.windows.net/;SharedAccessKeyName=service;SharedAccessKey=OyXkqd7cIcttCS+qZRqmewn1AObUDMRZK+ASbDVhwVg=;EntityPath=emailshopping";
+        private string _connectionString = "Endpoint=sb://shoppingproject.servicebus.windows.net/;SharedAccessKeyName=emailShopping;SharedAccessKey=G31IgDpe6oTBhgHsY+6gZqfUyXjeQ8APT+ASbL6doz4=;EntityPath=emailshopping";
         public async Task PublishMessage(object message, string topic_queue_name)
         {
             await using var client = new ServiceBusClient(_connectionString);

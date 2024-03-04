@@ -67,7 +67,7 @@ namespace CouponWeb.Controllers
         {
             CartDto cart = await LoadCartDtoByUser();
             cart.CartHeader.Email = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Email)?.FirstOrDefault()?.Value;
-            ResponseDto? response = await _cartService.EmailCart(cartDto);
+            ResponseDto? response = await _cartService.EmailCart(cart);
             if (response != null & response.IsSuccess)
             {
                 TempData["success"] = "Email will be processed and sent shortly.";
@@ -75,7 +75,6 @@ namespace CouponWeb.Controllers
             }
             return View();
         }
-
 
 
         private async Task<CartDto> LoadCartDtoByUser() //load cartdo based on logged in user
