@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MessageBus;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,17 +19,21 @@ namespace ShoppingCartApi.Controllers
         private IMapper _mapper;
         private ResponseDto _response;
         private readonly AppDbContext _db;
-        private readonly IProductService _productService;
-        private readonly ICouponService _couponService;
+        private IProductService _productService;
+        private ICouponService _couponService;
         private readonly IMessageBus _messageBus;
+        private readonly IConfiguration _configuration;
 
-        public ShoppingCartApiController(IMapper mapper, AppDbContext db, IProductService productService, ICouponService couponService)
+        public ShoppingCartApiController(IMapper mapper, AppDbContext db, IProductService productService, ICouponService couponService, IMessageBus messageBus, IConfiguration configuration)
         {
             _mapper = mapper;
             this._response = new ResponseDto();
             _db = db;
             _productService = productService;
             _couponService = couponService;
+            _messageBus = messageBus;
+            _configuration = configuration;
+
         }
 
         [HttpGet("GetCart/{userId}")]
@@ -166,7 +171,7 @@ namespace ShoppingCartApi.Controllers
         {
             try
             {
-                await _messageBus.PublishMessage(cartDto, _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue"));
+                await _messageBus.PublishMessage(cartDto, _configuration.GetValue<string>("TopicAndQueueNames:service"));
                 _response.Result = true;
             }
             catch (Exception ex)
