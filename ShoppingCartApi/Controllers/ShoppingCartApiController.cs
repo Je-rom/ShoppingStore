@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ShoppingCartApi.Data;
 using ShoppingCartApi.Models;
 using ShoppingCartApi.Models.Dto;
@@ -19,6 +20,7 @@ namespace ShoppingCartApi.Controllers
         private readonly AppDbContext _db;
         private readonly IProductService _productService;
         private readonly ICouponService _couponService;
+        private readonly IMessageBus _messageBus;
 
         public ShoppingCartApiController(IMapper mapper, AppDbContext db, IProductService productService, ICouponService couponService)
         {
@@ -155,6 +157,22 @@ namespace ShoppingCartApi.Controllers
             {
                 _response.Message = ex.Message.ToString();
                 _response.IsSuccess = false;
+            }
+            return _response;
+        }
+
+        [HttpPost("EmailCartRequest")]
+        public async Task<object> EmailCartRequest([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                await _messageBus.PublishMessage(cartDto, _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue"));
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.ToString();
             }
             return _response;
         }
