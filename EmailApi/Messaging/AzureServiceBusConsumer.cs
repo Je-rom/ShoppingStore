@@ -1,46 +1,65 @@
 ﻿using Azure.Messaging.ServiceBus;
+using EmailApi.Models.Dto;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace EmailApi.Messaging
 {
-    public class AzureServiceBusConsumer
+    public class AzureServiceBusConsumer : IAzureServiceBusConsumer
     {
         private readonly string _connectionString;
         private readonly string _emailQueue;
         private readonly IConfiguration _configuration;
+        private ServiceBusProcessor processor;
 
         public AzureServiceBusConsumer(IConfiguration configuration)
         {
             _configuration = configuration;
             _connectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             _emailQueue = _configuration.GetValue<string>("TopicAndQueueNames:emailshoppingQueue");
+
+            var client = new ServiceBusClient(_connectionString); //create a service bus client on the connection string
+            processor = client.CreateProcessor(_emailQueue, new ServiceBusProcessorOptions()); // to listen to a queue or a topic
         }
 
-        public void RegisterOnMessageHandlerAndReceiveMessages()
+        public async Task Start()
         {
-            var client = new ServiceBusClient(_connectionString);
-            var processor = client.CreateProcessor(_emailQueue, new ServiceBusProcessorOptions()); // to listen to a queue or a topic
-
-            processor.ProcessMessageAsync += ProcessMessages;
-            processor.ProcessErrorAsync += ProcessError;
-
-            await processor.StartProcessingAsync();
+            processor.ProcessMessageAsync += OnEmailCartRequestedReceived;
+            processor.ProcessErrorAsync += ErrorHandler;
         }
 
-      /*  private async Task ProcessMessages(ProcessMessageEventArgs args)
+        public async Task Stop()
         {
-            var body = args.Message.Body.ToString();
-            var email = JsonSerializer.Deserialize<EmailLogger>(body, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            _logger.LogInformation($"Received message: {email.Id} - {email.Email}");
-
-            await args.CompleteMessageAsync(args.Message);
+            await processor.StopProcessingAsync();
+            await processor.DisposeAsync();
         }
 
-        private Task ProcessError(ProcessErrorEventArgs args)
-        {
-            _logger.LogError(args.Exception, "Error when receiving message from Azure Service Bus");
 
-            return Task.CompletedTask;
-        }*/
+        private async Task OnEmailCartRequestedReceived(ProcessMessageEventArgs args)
+        {
+            //where you will receive the message
+            var message = args.Message;
+            var body = Encoding.UTF8.GetString(message.Body);
+            CartDto objMessage = JsonConvert.DeserializeObject<CartDto>(body);
+
+            try
+            {
+                //try to log the email
+                await args.CompleteMessageAsync(args.Message);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }  
+        }
+
+        private async Task ErrorHandler(ProcessErrorEventArgs args)
+        {
+            /*_logger.LogError(args.Exception, "Error when receiving message from Azure Service Bus");
+
+            await Task.CompletedTask;*/
+        }   
+
+
     }
 }
