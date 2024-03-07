@@ -12,9 +12,9 @@ namespace EmailApi.Messaging
         private readonly string _emailQueue;
         private readonly IConfiguration _configuration;
         private ServiceBusProcessor processor;
-        private readonly IEmailService _emailService;
+        private readonly EmailService _emailService;
 
-        public AzureServiceBusConsumer(IConfiguration configuration, IEmailService emailService)
+        public AzureServiceBusConsumer(IConfiguration configuration, EmailService emailService)
         {
             _configuration = configuration;
             _connectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
