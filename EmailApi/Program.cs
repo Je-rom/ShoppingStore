@@ -1,4 +1,5 @@
 using EmailApi.Data;
+using EmailApi.Extension;
 using EmailApi.Messaging;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 ApplyMigration();
+app.UseAzureServiceBusConsumer();
 app.Run();
 
 
