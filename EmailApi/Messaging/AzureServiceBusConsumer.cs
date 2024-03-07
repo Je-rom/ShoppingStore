@@ -26,6 +26,7 @@ namespace EmailApi.Messaging
         {
             processor.ProcessMessageAsync += OnEmailCartRequestedReceived;
             processor.ProcessErrorAsync += ErrorHandler;
+            await processor.StartProcessingAsync();
         }
 
         public async Task Stop()
