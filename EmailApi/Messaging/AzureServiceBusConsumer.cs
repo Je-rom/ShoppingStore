@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 using EmailApi.Models.Dto;
+using EmailApi.Services;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -11,8 +12,9 @@ namespace EmailApi.Messaging
         private readonly string _emailQueue;
         private readonly IConfiguration _configuration;
         private ServiceBusProcessor processor;
+        private readonly IEmailService _emailService;
 
-        public AzureServiceBusConsumer(IConfiguration configuration)
+        public AzureServiceBusConsumer(IConfiguration configuration, IEmailService emailService)
         {
             _configuration = configuration;
             _connectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
@@ -20,6 +22,7 @@ namespace EmailApi.Messaging
 
             var client = new ServiceBusClient(_connectionString); //create a service bus client on the connection string
             processor = client.CreateProcessor(_emailQueue, new ServiceBusProcessorOptions()); // to listen to a queue or a topic
+            _emailService = emailService;
         }
 
         public async Task Start()
@@ -46,6 +49,7 @@ namespace EmailApi.Messaging
             try
             {
                 //try to log the email
+                await _emailService.EmailCartLog(objMessage);
                 await args.CompleteMessageAsync(args.Message);
             }
             catch (Exception ex)

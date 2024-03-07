@@ -1,34 +1,60 @@
 ﻿using EmailApi.Data;
+using EmailApi.Models;
 using EmailApi.Models.Dto;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace EmailApi.Services
 {
     public class EmailService : IEmailService
-    {/*
-        private readonly IAzureServiceBusProducer _azureServiceBusProducer;
-        private readonly IConfiguration _configuration;
+    {
+        private DbContextOptions<AppDbContext> _dbOptions;
 
-        public EmailService(IAzureServiceBusProducer azureServiceBusProducer, IConfiguration configuration)
+        public EmailService(DbContextOptions<AppDbContext> dbOptions)
         {
-            _azureServiceBusProducer = azureServiceBusProducer;
-            _configuration = configuration;
+            _dbOptions = dbOptions;
         }
 
         public async Task EmailCartLog(CartDto cartDto)
         {
-            await _azureServiceBusProducer.SendMessage(cartDto);
-        }*/
-        private DbContextOptions<AppDbContext> options;
+            StringBuilder message = new StringBuilder();
 
-        public EmailService(DbContextOptions<AppDbContext> options)
-        {
-            this.options = options;
+            message.AppendLine("<br/>Cart Email Requested ");
+            message.AppendLine("<br/>Total " + cartDto.CartHeader.CartTotal);
+            message.Append("<br/>");
+            message.Append("<ul>");
+            foreach (var item in cartDto.CartDetails)
+            {
+                message.Append("<li>");
+                message.Append(item.Product.Name + " x " + item.Count);
+                message.Append("</li>");
+            }
+            message.Append("</ul>");
+
+            await LogAndEmail(message.ToString(), cartDto.CartHeader.Email);
         }
 
-        public Task EmailCartLog(CartDto cartDto)
+        private async Task<bool> LogAndEmail(string message, string email)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                EmailLogger emailLog = new()
+                {
+                    Email = email,
+                    Message = message,
+                    EmailSent = DateTime.Now
+                };
+                await using var _db = new AppDbContext(_dbOptions);
+                await _db.EmailLoggers.AddAsync(emailLog);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
         }
     }
 }
