@@ -10,15 +10,19 @@ namespace EmailApi.Messaging
     {
         private readonly string _connectionString;
         private readonly string _emailQueue;
+        private readonly string _registerUserQueue;
         private readonly IConfiguration _configuration;
         private ServiceBusProcessor processor;
         private readonly EmailService _emailService;
+
 
         public AzureServiceBusConsumer(IConfiguration configuration, EmailService emailService)
         {
             _configuration = configuration;
             _connectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
+
             _emailQueue = _configuration.GetValue<string>("TopicAndQueueNames:emailshoppingQueue");
+            _registerUserQueue = _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue");
 
             var client = new ServiceBusClient(_connectionString); //create a service bus client on the connection string
             processor = client.CreateProcessor(_emailQueue, new ServiceBusProcessorOptions()); // to listen to a queue or a topic

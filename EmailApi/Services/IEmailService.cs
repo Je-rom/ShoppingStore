@@ -5,5 +5,6 @@ namespace EmailApi.Services
     public interface IEmailService
     {
         Task EmailCartLog(CartDto cartDto);
+        Task RegisterUserEmailAndLog(string email);
     }
 }

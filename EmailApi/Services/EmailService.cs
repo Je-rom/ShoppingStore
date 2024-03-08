@@ -34,9 +34,14 @@ namespace EmailApi.Services
             await LogAndEmail(message.ToString(), cartDto.CartHeader.Email);
         }
 
+        public async Task RegisterUserEmailAndLog(string email)
+        {
+            string message  = "User Registered with Email " + email;
+            await LogAndEmail(message, email);
+        }
+
         private async Task<bool> LogAndEmail(string message, string email)
         {
-
             try
             {
                 EmailLogger emailLog = new()
