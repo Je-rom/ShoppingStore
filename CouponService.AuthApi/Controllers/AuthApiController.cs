@@ -13,15 +13,15 @@ namespace CouponService.AuthApi.Controllers
 
         private readonly IAuthService _authService;
         protected ResponseDto _response;
-        private readonly IMessageBus _messageBus;
-        private readonly IConfiguration _configuration;
+  /*      private readonly IMessageBus _messageBus;
+        private readonly IConfiguration _configuration;*/
 
-        public AuthApiController(IAuthService authService, IMessageBus messageBus, IConfiguration configuration)
+        public AuthApiController(IAuthService authService)
         {
             _authService = authService;
             _response = new();
-            _messageBus = messageBus;
-            _configuration = configuration;
+            /*_messageBus = messageBus;
+            _configuration = configuration;*/
         }
 
         [HttpPost("register")]
@@ -35,7 +35,6 @@ namespace CouponService.AuthApi.Controllers
                 return BadRequest(_response);
             }
             //where we have to send a message
-            await _messageBus.PublishMessage(registrationRequestDto.Email, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue"));
             return Ok(_response);
         }
 

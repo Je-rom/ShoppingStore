@@ -10,10 +10,13 @@ namespace EmailApi.Messaging
     {
         private readonly string _connectionString;
         private readonly string _emailQueue;
-        private readonly string _registerUserQueue;
+
         private readonly IConfiguration _configuration;
-        private ServiceBusProcessor processor;
+      
         private readonly EmailService _emailService;
+
+        private ServiceBusProcessor Emailprocessor;
+
 
 
         public AzureServiceBusConsumer(IConfiguration configuration, EmailService emailService)
@@ -22,24 +25,29 @@ namespace EmailApi.Messaging
             _connectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
 
             _emailQueue = _configuration.GetValue<string>("TopicAndQueueNames:emailshoppingQueue");
-            _registerUserQueue = _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue");
+
+
 
             var client = new ServiceBusClient(_connectionString); //create a service bus client on the connection string
-            processor = client.CreateProcessor(_emailQueue, new ServiceBusProcessorOptions()); // to listen to a queue or a topic
+            Emailprocessor = client.CreateProcessor(_emailQueue); // to listen to a queue or a topic
+          
             _emailService = emailService;
         }
 
         public async Task Start()
         {
-            processor.ProcessMessageAsync += OnEmailCartRequestedReceived;
-            processor.ProcessErrorAsync += ErrorHandler;
-            await processor.StartProcessingAsync();
+            Emailprocessor.ProcessMessageAsync += OnEmailCartRequestedReceived;
+            Emailprocessor.ProcessErrorAsync += ErrorHandler;
+            await Emailprocessor.StartProcessingAsync();
+
         }
 
+       
         public async Task Stop()
         {
-            await processor.StopProcessingAsync();
-            await processor.DisposeAsync();
+            await Emailprocessor.StopProcessingAsync();
+            await Emailprocessor.DisposeAsync();
+
         }
 
 
@@ -61,6 +69,8 @@ namespace EmailApi.Messaging
                 throw;
             }  
         }
+
+
 
         private async Task ErrorHandler(ProcessErrorEventArgs args)
         {
