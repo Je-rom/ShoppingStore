@@ -8,7 +8,7 @@ namespace MessageBus
 {
     public interface IMessageBus
     {
-        Task PublishMessage(object message, string topic_queue_name);
+        Task PublishMessage(object message, string topic_queue_name); //message signature
         //void Subscribe<T, TH>() where T : BaseMessage where TH : IMessageHandler<T>;
     }
 }
