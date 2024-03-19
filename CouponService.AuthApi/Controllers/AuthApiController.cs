@@ -62,6 +62,7 @@ namespace CouponService.AuthApi.Controllers
                 _response.Message = "Error encountered";
                 return BadRequest(_response);
             }
+
             return Ok(_response);
         }
     }
